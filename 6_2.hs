@@ -5,12 +5,12 @@ import System.Environment
 import System.IO
 
 
-lanternFish :: [Int] -> Int -> [Int]
+lanternFish :: C.ByteString -> Int -> [Integer]
 lanternFish startingFish 0 = startingFish 
-lanternFish startingFish n = lanternFish (foldr reproduce [] startingFish) (n-1)
+lanternFish startingFish n = lanternFish (foldr reproduce C.empty startingFish) (n-1)
     where
-        reproduce 0 newFish = 6 : 8 : newFish
-        reproduce n newFish = (n-1) : newFish
+        reproduce 0 newFish = C.readInt 6 : C.readInt 8 : newFish
+        reproduce n newFish = C.cons (C.readInt n)-1 newFish
 
 usage :: IO()
 usage = do
